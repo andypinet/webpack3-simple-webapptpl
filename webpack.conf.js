@@ -5,13 +5,16 @@ const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const utils = require("./utils");
 const config = require("./config");
 
+const PAGE = "index";
+
 module.exports = {
-    entry: './src/index.js',
+    entry: `./src/${PAGE}/index.js`,
     output: {
         path: config.build.assetsRoot,
         filename: utils.assetsPath('js/[name].[chunkhash].js'),
         chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
     },
+    watch: false,
     module: {
         rules: [
             {
@@ -25,7 +28,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-             template: 'src/index.html'
+             template: `src/${PAGE}/index.html`
         }),
         new ExtractTextPlugin(config.build.assetsSubDirectory + "/css/[name]-[chunkhash:8].css"),
         // new StyleExtHtmlWebpackPlugin({

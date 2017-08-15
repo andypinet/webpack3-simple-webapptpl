@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'production'
 
+var argv = require('yargs').argv
 var ora = require('ora')
 var rm = require('rimraf')
 var path = require('path')
@@ -8,7 +9,11 @@ var webpack = require('webpack')
 var config = require('./config')
 var webpackConfig = require('./webpack.conf')
 
-var spinner = ora('building for production...')
+if (argv.watch) {
+  webpackConfig.watch = true;
+}
+
+var spinner = ora('building for production... ')
 spinner.start()
 
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
