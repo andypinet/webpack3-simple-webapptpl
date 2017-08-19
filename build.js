@@ -1,13 +1,18 @@
 process.env.NODE_ENV = 'production'
 
-var argv = require('yargs').argv
-var ora = require('ora')
-var rm = require('rimraf')
-var path = require('path')
-var chalk = require('chalk')
-var webpack = require('webpack')
-var config = require('./config')
-var webpackConfig = require('./webpack.conf')
+const argv = require('yargs').argv
+const ora = require('ora')
+const rm = require('rimraf')
+const path = require('path')
+const chalk = require('chalk')
+const webpack = require('webpack')
+const config = require('./config')
+const webpackConfig = require('./webpack.conf')
+const fs = require('fs');
+const klawSync = require('klaw-sync')
+
+let staticfilepath = "";
+staticfilepath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory);
 
 if (argv.watch) {
   webpackConfig.watch = true;
@@ -16,8 +21,41 @@ if (argv.watch) {
 var spinner = ora('building for production... ')
 spinner.start()
 
-rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
-  if (err) throw err
+// 删除相关文件
+function getRelateFilesByNameSync(deletefilename) {
+  var files = klawSync(staticfilepath)
+  return files.filter( (v, k) => {
+    if (v.stats.isFile()) {
+        return true;
+    }
+    return false
+  } ).map((v, k) => v.path).filter((v, k) => {
+    var name = v.split("/").pop();
+    if (name.indexOf(deletefilename) > -1) {
+      return true;
+    }
+    return false;
+  })
+}
+
+var rmtasks = [];
+
+if (fs.existsSync(staticfilepath)) {
+  getRelateFilesByNameSync(config.build.page).map(function map(path) {
+    rmtasks.push(new Promise(function (resolve, reject) {
+      rm(path, err => {
+        if (err) {
+          reject(err)
+        }
+        resolve();
+      });
+    }));
+  });
+} else{
+  console.log("no file exist")
+}
+
+Promise.all(rmtasks).then(() => {
   webpack(webpackConfig, function (err, stats) {
     spinner.stop()
     if (err) throw err
@@ -35,4 +73,8 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       '  Opening index.html over file:// won\'t work.\n'
     ))
   })
+}).catch((e) => {
+  console.log('------------------------------------');
+  console.log(e);
+  console.log('------------------------------------');
 })

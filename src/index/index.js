@@ -1,6 +1,6 @@
 import "../assets/css/app/index.css"
 import "../assets/css/index/index.css"
-import "../../framework/js/aui/emitter.js"
+import "../emitter.js"
 
 function component() {
   var element = document.createElement('div');
