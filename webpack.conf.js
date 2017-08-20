@@ -26,7 +26,30 @@ module.exports = {
                     fallback: "style-loader",
                     use: "css-loader"
                 })
-            }
+            },
+            {
+                test: /\.scss$/,
+                use:  ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [{
+                        loader: "css-loader"
+                    }, {
+                        loader: "sass-loader"
+                    }]
+                })
+            },
+            {
+                test: /\.(png|gif|jpe?g)$/,
+                loader: 'url-loader',
+                query: {
+                    /*
+                     *  limit=10000 ： 10kb
+                     *  图片大小小于10kb 采用内联的形式，否则输出图片
+                     * */
+                    limit: 10000,
+                    name: '/img/[name]-[hash:8].[ext]'
+                }
+            },
         ]
     },
     plugins: [

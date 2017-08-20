@@ -1,5 +1,5 @@
 import "../assets/css/app/index.css"
-import "../assets/css/index/index.css"
+import "./index.scss"
 import "../emitter.js"
 
 function component() {
