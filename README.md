@@ -1,3 +1,5 @@
+### a webpack3 simple webapp template
+
 ##### use
 
 global install
@@ -6,7 +8,9 @@ global install
 npm install -g webpack
 ```
 
-a webpack3 simple webapp template
+如何安装node-sass
+
+https://github.com/andypinet/blog/issues/2
 
 ##### feature
 
