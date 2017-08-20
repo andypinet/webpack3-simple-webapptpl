@@ -1,3 +1,5 @@
+##### use
+
 global install
 
 ```
@@ -6,6 +8,11 @@ npm install -g webpack
 
 a webpack3 simple webapp template
 
+##### feature
+
+1. scss support
+2. postcss support
+3. multi page support
 
 ##### dev
 
