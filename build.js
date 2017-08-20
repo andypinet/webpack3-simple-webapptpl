@@ -10,12 +10,15 @@ const config = require('./config')
 const webpackConfig = require('./webpack.conf')
 const fs = require('fs');
 const klawSync = require('klaw-sync')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 let staticfilepath = "";
 staticfilepath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory);
 
 if (argv.watch) {
   webpackConfig.watch = true;
+} else {
+  webpackConfig.plugins.push(new UglifyJSPlugin());
 }
 
 var spinner = ora('building for production... ')
