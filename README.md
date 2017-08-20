@@ -22,14 +22,12 @@ need ruby sass
 
 ```
 gulp sass:watch
-
 ```
 
 js
 
 ```
 npm run watch
-
 ```
 
 server
