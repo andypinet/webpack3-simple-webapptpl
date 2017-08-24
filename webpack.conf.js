@@ -4,6 +4,13 @@ const ExtractTextPlugin  = require("extract-text-webpack-plugin");
 const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const utils = require("./utils");
 const config = require("./config");
+const fs = require("fs");
+var babelrc = {};
+try {
+    babelrc =  JSON.parse(fs.readFileSync("./.babelrc").toString());
+} catch (e) {
+    console.error("error parse babelrc");
+}
 
 const PAGE = config.build.page;
 
@@ -25,9 +32,19 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 use: {
                   loader: 'babel-loader',
-                  options: {
-                    presets: ['env']
-                  }
+                  options: Object.assign({
+                    presets: [
+                       [
+                            'env',
+                            {
+                                modules: false,
+                                targets: {
+                                    "browsers": ["ie >= 9"]
+                                }
+                            }
+                       ]
+                    ],                    
+                  }, babelrc, {}),
                 }
             },
             {

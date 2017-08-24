@@ -18,8 +18,9 @@ staticfilepath = path.join(config.build.assetsRoot, config.build.assetsSubDirect
 if (argv.watch) {
   webpackConfig.watch = true;
 } else {
-  // build 时 添加 压缩
-  // webpackConfig.plugins.push(new UglifyJSPlugin());
+  // build 时 添加 压缩 包含 tree shaking
+  // webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin({
+  // }))
 }
 
 var spinner = ora('building for production... ')
