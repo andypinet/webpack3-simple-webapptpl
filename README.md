@@ -18,7 +18,8 @@ https://github.com/andypinet/blog/issues/2
 2. postcss support
 3. es6 support
 4. font support
-5. multi page support
+5. multi page support  
+    - in config.js change page 
 
 ##### dev
 
