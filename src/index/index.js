@@ -1,6 +1,5 @@
 import "../assets/css/app/index.css"
 import "./index.scss"
-import "../emitter.js"
 
 function component(content = "sds") {
   var element = document.createElement('div');

@@ -17,7 +17,8 @@ https://github.com/andypinet/blog/issues/2
 1. scss support
 2. postcss support
 3. es6 support
-4. multi page support
+4. font support
+5. multi page support
 
 ##### dev
 

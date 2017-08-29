@@ -10,6 +10,8 @@ const gulpIgnore = require('gulp-ignore');
 const path = require('path');
 const fs = require('fs');
 const rimraf = require('rimraf');
+const babel = require('gulp-babel');
+const mocha = require('gulp-mocha');
 
 let publicpath = "/Users/andy/projects/admin.ums.aunbox.cn.dev";
 
@@ -33,21 +35,12 @@ gulp.task('sass:watch', function () {
     gulp.watch('src/**/*.scss', ['sass']);
 });
 
-gulp.task('deploy', function () {
-    var folder = publicpath;
-    gulp.src([
-        "src/config.js",
-        "src/config.example.js",
-        "src/iconfont.eot",
-        "src/jquery.fileupload.js"
-    ]).pipe(gulp.dest("./dist"))
-});
-
-gulp.task('report', function () {
-    var folder = publicpath;
-    rimraf(folder + "/*", fs, function () {
-        gulp.src("./dist/**/*")
-            .pipe(gulpIgnore.exclude("config.js"))
-            .pipe(gulp.dest(folder))
-    });
+gulp.task('test', function () {
+    return gulp.src('test/module/*.js')
+        .pipe(babel(
+            {
+                presets: ['env']
+            }
+        ))
+        .pipe(gulp.dest("./test"))
 });

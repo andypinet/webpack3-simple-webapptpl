@@ -28,7 +28,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /[\.js\.jsx\.es]$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
                   loader: 'babel-loader',
@@ -42,7 +42,8 @@ module.exports = {
                                     "browsers": ["ie >= 9"]
                                 }
                             }
-                       ]
+                       ],
+                       'react'
                     ],                    
                   }, babelrc, {}),
                 }
@@ -62,6 +63,8 @@ module.exports = {
                         loader: "css-loader"
                     }, {
                         loader: "sass-loader"
+                    }, {
+                        loader: "postcss-loader"
                     }]
                 })
             },
@@ -77,6 +80,18 @@ module.exports = {
                     name: '/img/[name]-[hash:8].[ext]'
                 }
             },
+            { // 增加加载字体的规则
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                loader: 'url-loader',
+                query: {
+                    /*
+                     *  limit=10000 ： 10kb
+                     *  字体大小小于10kb 采用内联的形式，否则输出字体
+                     * */
+                    limit: 10000,
+                    name: '/fonts/[name]-[hash:8].[ext]'
+                }                
+            }            
         ]
     },
     plugins: [
