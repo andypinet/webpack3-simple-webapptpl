@@ -77,7 +77,7 @@ module.exports = {
                      *  图片大小小于10kb 采用内联的形式，否则输出图片
                      * */
                     limit: 10000,
-                    name: '/img/[name]-[hash:8].[ext]'
+                    name: 'static/img/[name]-[hash:8].[ext]'
                 }
             },
             { // 增加加载字体的规则
@@ -89,7 +89,7 @@ module.exports = {
                      *  字体大小小于10kb 采用内联的形式，否则输出字体
                      * */
                     limit: 10000,
-                    name: '/fonts/[name]-[hash:8].[ext]'
+                    name: 'static/fonts/[name]-[hash:8].[ext]'
                 }                
             }            
         ]
