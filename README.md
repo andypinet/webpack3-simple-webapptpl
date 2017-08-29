@@ -8,6 +8,18 @@ global install
 npm install -g webpack
 ```
 
+build
+
+```
+npm run build
+```
+
+server
+
+```
+npm run server
+```
+
 如何安装node-sass
 
 https://github.com/andypinet/blog/issues/2
